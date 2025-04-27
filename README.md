@@ -75,38 +75,208 @@ Pada tahap awal, dilakukan beberapa analisis untuk memahami data lebih dalam. Ha
 
    ![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=1SHY3ez8cRwliTN2zxmZjb8_KYGI3VWF0)
 
+2. **Mengetahui Type Data, Missing Value, dan Data Duplikat pada Dataset**: 
+
+   **Type Data**
+   
+    ![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=1hSDu0oX_Blc2SaWKQDFJ5JbocZUjpc-3)
+
+   **Missing Value**
+   
+   ![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=12IfgPNvex-D4zPsHUMHEkTcmI-PQeW86)
+
+   **Duplikat**
+
+   ![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=1dOHsBLHN3h-zAV2Eof3Cg7fw-iIJ3V-c)
+   
+   Tidak terdapat data yang duplikat. Hanya saja, beberapa kolom memiliki nilai yang hilang (missing values). 
+
+    - Kolom `umur` memiliki 9 nilai yang hilang.
+    - Kolom `jkw` memiliki 8 nilai yang hilang.
+    - Kolom `bi_sektor_ekonomi` memiliki 1 nilai yang hilang.
+
+    Setelah dilakukan penanganan, dataset memiliki 753 baris data yang lengkap tanpa nilai yang hilang.
+
+    ![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=1DyZpdZEGjgn_LYyl6lgCWkZl6czGRHbK)
+
+4. **Kolom dengan Tipe Data Tidak Tepat**:
+
+   Terdapat beberapa kolom yang memiliki tipe data object padahal seharusnya menggunakan tipe data category agar lebih efisien, yaitu:
+
+    ![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=1p0_4eon3xm9rvwAX50m62j62lDnl9djs)
+
+    - Kolom jenis_kelamin, yang memiliki nilai unik seperti 'P', 'L', 'WANITA', 'LAKI-LAKI', 'PRIA', 'PEREMPUAN'.
+    - Kolom status kredit, yang memiliki dua kategori: 'MACET' dan 'LANCAR'.
+    
+    Setelah perbaikan tipe data menjadi category, kolom-kolom ini menjadi :
+   
+   ![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=1OO2HjEWGPLvIQqT_0gM8VFm9TTuOOMpH)
+
+   **Type Data Terbaru**
+   
+   ![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=1ZgsF8NDyoqyf1pOG7Jdo05rxuNY7v5fd)
 
 
-## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+## **Data Preparation**
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+Pada bagian ini, dilakukan beberapa tahapan untuk mempersiapkan data yang digunakan dalam model. Berikut adalah langkah-langkah data preparation yang diterapkan:
 
-## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+1. **Pengecekan Struktur Data**
+   - Dilakukan pengecekan jumlah baris dan kolom pada dataset untuk mengetahui dimensi data.
+   - Memeriksa informasi tipe data dan jumlah nilai non-null pada setiap kolom.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+2. **Pengecekan Duplikasi**
+   - Mengecek apakah terdapat data yang duplikat dalam dataset.
+   
+3. **Pengecekan Missing Values**
+   - Memeriksa jumlah nilai yang hilang (missing values) pada setiap kolom untuk memastikan data bersih dan siap digunakan.
 
-## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
+4. **Penghapusan Missing Values**
+   - Baris dengan missing values dihapus dari dataset untuk memastikan bahwa model tidak terpengaruh oleh data yang hilang.
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+5. **Deskriptif Statistik dan Tipe Data**
+   - Melakukan eksplorasi deskriptif untuk memahami distribusi dan statistik dasar setiap kolom.
+   - Mengidentifikasi kolom yang memiliki tipe data yang tidak sesuai, seperti kolom `jenis_kelamin` dan `status kredit` yang seharusnya bertipe kategori, bukan `object`.
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+6. **Perubahan Tipe Data**
+   - Mengubah tipe data kolom `jenis_kelamin` dan `status kredit` menjadi tipe kategori untuk meningkatkan efisiensi pemrosesan.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+7. **Pembersihan Nilai Kolom `jenis_kelamin`**
+   - Melakukan standarisasi nilai pada kolom `jenis_kelamin` dengan mengganti beberapa representasi nilai (seperti "WANITA" menjadi "P" dan "LAKI-LAKI" menjadi "L") agar konsisten.
 
-**---Ini adalah bagian akhir laporan---**
+8. **Label Encoding**
+   - Menerapkan Label Encoding pada kolom `jenis_kelamin` untuk mengubah nilai kategori menjadi representasi numerik.
 
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+9. **Pemisahan Fitur dan Target**
+   - Memisahkan dataset menjadi dua bagian: fitur (X) yang akan digunakan untuk melatih model dan target (y) yang merupakan variabel yang diprediksi.
+
+10. **Normalisasi Data**
+    - Menggunakan MinMaxScaler untuk melakukan normalisasi pada kolom-kolom numerik agar skala data menjadi seragam.
+
+
+## **Modeling**
+
+Pada tahap ini, beberapa algoritma machine learning diterapkan untuk menyelesaikan masalah klasifikasi berdasarkan dataset yang telah diproses. Berikut adalah algoritma yang digunakan beserta tahapan dan parameter yang diterapkan:
+
+### **1. K-Nearest Neighbors (KNN)**
+- **Kelebihan**:
+  - Mudah dipahami dan diimplementasikan.
+  - Tidak memerlukan asumsi distribusi data tertentu.
+  - Sangat efektif untuk dataset kecil hingga menengah.
+- **Kekurangan**:
+  - Performa menurun pada dataset yang sangat besar atau memiliki dimensi tinggi.
+  - Sensitif terhadap noise dalam data.
+- **Proses Pemodelan**:
+  - Menggunakan **jumlah tetangga (k)** yang berbeda untuk mencari nilai terbaik.
+  - Parameter lainnya yang digunakan adalah **metrik jarak** seperti Euclidean.
+
+### **2. Decision Tree (DT)**
+- **Kelebihan**:
+  - Mudah diinterpretasikan dan divisualisasikan.
+  - Dapat menangani data numerik dan kategori.
+- **Kekurangan**:
+  - Rentan terhadap overfitting pada data dengan banyak fitur.
+- **Proses Pemodelan**:
+  - Menggunakan parameter **maksimum kedalaman pohon (max_depth)** untuk membatasi kedalaman dan mencegah overfitting.
+  - Parameter **min_samples_split** dan **min_samples_leaf** digunakan untuk mengontrol pembentukan pohon.
+
+### **3. Random Forest (RF)**
+- **Kelebihan**:
+  - Dapat menangani overfitting dengan baik.
+  - Akurat dan stabil.
+- **Kekurangan**:
+  - Model lebih kompleks dan membutuhkan lebih banyak waktu untuk pelatihan.
+- **Proses Pemodelan**:
+  - Menggunakan beberapa **decision trees** dengan parameter **n_estimators** untuk menentukan jumlah pohon yang akan digunakan.
+  - Parameter **max_features** digunakan untuk mengontrol fitur yang dipilih setiap pohon.
+
+### **4. Support Vector Machine (SVM)**
+- **Kelebihan**:
+  - Sangat efektif pada data dengan margin pemisahan yang jelas.
+  - Efektif untuk dimensi tinggi.
+- **Kekurangan**:
+  - Memerlukan pemilihan kernel yang tepat.
+  - Pelatihan pada dataset besar bisa memakan waktu.
+- **Proses Pemodelan**:
+  - Menggunakan parameter **kernel** (linear, polynomial, atau radial basis function - RBF).
+  - Parameter **C** digunakan untuk mengontrol trade-off antara margin dan kesalahan.
+
+### **5. Naive Bayes (NB)**
+- **Kelebihan**:
+  - Cepat dan efisien pada dataset besar.
+  - Sangat baik untuk data yang memiliki fitur independen.
+- **Kekurangan**:
+  - Tidak efektif jika ada ketergantungan antar fitur.
+- **Proses Pemodelan**:
+  - Menggunakan probabilitas untuk setiap fitur dalam klasifikasi.
+  - Model ini mengasumsikan bahwa setiap fitur independen.
+
+
+## **Evaluation**
+
+Pada bagian ini, kami menggunakan beberapa metrik evaluasi untuk mengukur performa setiap model yang diterapkan. Metrik yang digunakan adalah **Akurasi, Precision, Recall, dan F1-Score**. Berikut adalah penjelasan masing-masing metrik:
+
+### **Akurasi (Accuracy)**
+Akurasi mengukur proporsi prediksi yang benar dibandingkan dengan jumlah total prediksi. Formula yang digunakan adalah:
+
+![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=1AAWJjKG7NqVnf3HRuZxld7NwIEVsUd6m)
+
+Akurasi memberikan gambaran umum tentang seberapa baik model dalam mengklasifikasikan data, namun tidak selalu memberikan gambaran yang baik ketika ada ketidakseimbangan kelas.
+
+### **Precision**
+Precision mengukur proporsi prediksi positif yang benar dibandingkan dengan total prediksi positif yang dilakukan oleh model. Formula yang digunakan adalah:
+
+![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=1z1RcIFZh6Db9BYSfDNpYf2A_FGezZV8_)
+
+Di mana:
+- **TP** (True Positives) adalah jumlah prediksi positif yang benar.
+- **FP** (False Positives) adalah jumlah prediksi positif yang salah.
+
+Precision sangat penting ketika false positives harus dihindari, seperti dalam deteksi penipuan.
+
+### **Recall**
+Recall mengukur proporsi kasus positif yang berhasil dideteksi oleh model dibandingkan dengan total kasus positif yang ada. Formula yang digunakan adalah:
+
+![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=1UmLqvYMJOLmwRMp4DiJX8-RZV36KB8mN)
+
+Di mana:
+- **FN** (False Negatives) adalah jumlah prediksi negatif yang salah.
+
+Recall sangat penting ketika kita ingin meminimalkan jumlah false negatives, seperti dalam deteksi penyakit atau ancaman keamanan.
+
+### **F1-Score**
+F1-Score adalah rata-rata harmonis dari Precision dan Recall. Formula yang digunakan adalah:
+
+![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=1e4sd5FTj-d6RPck_4LaS7aESApWPuFpg)
+
+F1-Score memberikan gambaran yang lebih baik tentang keseimbangan antara Precision dan Recall, terutama ketika ada ketidakseimbangan antara keduanya.
+
+---
+
+### **Hasil Evaluasi Model**
+
+Berdasarkan hasil evaluasi, berikut adalah analisis performa masing-masing model:
+
+![Deskripsi Gambar](https://drive.google.com/uc?export=view&id=1ySL0IDeuTiqq-xHhUZ9XvkX0OWeWZpJJ)
+
+### **Analisis Hasil Evaluasi**
+- **K-Nearest Neighbors (KNN)**: Memiliki akurasi **90.07%**, precision **94.59%**, recall **92.11%**, dan F1-score **93.33%**. Model ini stabil namun tidak sebaik model lainnya.
+- **Decision Tree (DT)**: Menunjukkan akurasi **97.35%** dan F1-score **98.25%**, sangat baik dalam klasifikasi.
+- **Random Forest (RF)**: Mencatatkan performa terbaik dengan **akurasi 98.01%**, recall **100%**, dan F1-score **98.70%**. Model ini paling stabil dan efektif.
+- **Support Vector Machine (SVM)**: Meskipun memiliki recall **100%**, akurasi dan precision cukup rendah (**75.50%**).
+- **Naive Bayes (NB)**: Memiliki akurasi terendah (**64.90%**) dengan precision yang tinggi (**94.20%**) namun recall yang rendah (**57.02%**).
+
+### **Kesimpulan**
+- **Random Forest (RF)** adalah model terbaik berdasarkan **akurasi**, **recall**, dan **F1-score** yang sangat baik.
+- **Decision Tree (DT)** dapat menjadi pilihan yang lebih sederhana namun tetap efektif.
+- **SVM** cocok jika recall menjadi prioritas utama meskipun akurasi keseluruhan lebih rendah.
+- **Naive Bayes (NB)** dapat dipilih jika **precision** lebih diutamakan, meskipun memiliki kekurangan pada recall.
+
+---
+
+### **Rekomendasi**
+- Jika mengutamakan **akurasi dan kestabilan klasifikasi**, pilihlah **Random Forest (RF)**.
+- **Decision Tree (DT)** bisa dipilih sebagai alternatif yang lebih sederhana.
+- **SVM** dapat digunakan jika lebih memprioritaskan **recall**, meskipun dengan akurasi lebih rendah.
+- **Naive Bayes (NB)** lebih cocok jika precision menjadi prioritas utama meskipun ada trade-off dengan recall.
 
